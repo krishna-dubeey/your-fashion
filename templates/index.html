@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Fashion</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+<h1>Your Fashion</h1>
+<div class="form-container">
+    <form action="/search" method="POST">
+        <label for="query">Ask</label>
+        <input type="text" id="query" name="query">
+        <button type="submit">Submit</button>
+    </form>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <label for="option1">Select Gender:</label>
+            <select name="option1" id="option1" class="fancy-dropdown">
+                <option value="casual">Male</option>
+                <option value="formal">Female</option>
+                <option value="party">Other</option>
+            </select>
+        <label for="option2">Select Clothe Type:</label>
+            <select name="option2" id="option2" class="fancy-dropdown">
+                <option value="red">Pant</option>
+                <option value="black">Short</option>
+                <option value="blue">Shirt</option>
+                <option value="black">Tshirt</option>
+                <option value="black">Track-pant</option>
+                <option value="black">Skirt</option>
+                <option value="black">Top</option>
+                <option value="black">Ethnic</option>
+                <option value="black">Jeans</option>
+            </select>
+        <input type="submit" value="Upload">
+    </form>
+</div>
+<div class="center-container">
+    <button id="start-camera">
+        <i class="fas fa-camera"></i> Take Picture
+    </button>
+    <video id="video" width="640" height="480" style="display: none;" autoplay></video>
+    <button id="capture" style="display: none;">Capture</button>
+    <button id="stop" style="display: none;">Stop Camera</button>
+    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+</div>
+<div class="form-container">
+    <h1>Submit Image for Processing</h1>
+    <form action="/submit" method="post">
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<div class="results-container">
+{% if results %}
+    <h2>Search Results:</h2>
+    <pre>{{ results }}</pre>
+{% endif %}
+
+
+{% if result %}
+    <h3>Image Search Results:</h3>
+    <pre>{{ result }}</pre>
+{% endif %}
+</div>
+{% if message %}
+    <h4>{{ message }}</h4>
+    <script> setTimeout(function(){ window.location.href = "/"; }, 1000); </script>
+{% endif %}
+<div>
+    {% for image in images %}
+        <img src="{{ url_for('uploaded_file', filename=image) }}" alt="{{ image }}" data-filename="{{ image }}">
+    {% endfor %}
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const preElements = document.querySelectorAll(".results-container pre");
+
+    if (preElements.length === 0) {
+        console.error("No elements found with the selector '.results-container pre'");
+        return;
+    }
+
+    preElements.forEach(pre => {
+        let content = pre.innerHTML;
+        // Convert **bold** to <strong>bold</strong>
+        content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        // Convert *bullet* to <li>bullet</li>
+        content = content.replace(/\*(.*?)\*/g, '<li>$1</li>');
+        // Wrap <li> items with <ul> if there are any
+        if (content.includes('<li>')) {
+            content = '<ul>' + content + '</ul>';
+        }
+        pre.innerHTML = content;
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('img').forEach(function(img) {
+        img.addEventListener('click', function() {
+            const filename = this.getAttribute('data-filename');
+            if (confirm('Are you sure you want to delete this image?')) {
+                fetch(`/delete_image/${filename}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert('Image deleted successfully.');
+                            location.reload(); // Reload the page to update the list
+                        } else {
+                            alert('Error deleting image: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
