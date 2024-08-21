@@ -1,0 +1,224 @@
+/* General styles */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Zara and H&M like fonts */
+    padding: 20px;
+    background-color: #f7f7f7; /* Light background for a clean look */
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Zara and H&M like fonts */
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+input[type="text"],
+input[type="file"],
+button {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Make search bar and button long and fancy */
+#query {
+    width: calc(100% - 22px); /* Full width minus padding and border */
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid #007bff;
+    text-align: center; /* Center the search text */
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    font-size: 18px;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    font-size: 18px;
+}
+button i {
+    margin-right: 8px;
+}
+input[type="submit"]:hover {
+    background-color: #218838;
+}
+/* Center everything */
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+video, canvas {
+    margin: 10px 0;
+}
+
+/* Upload animation */
+@keyframes uploadAnimation {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+input[type="file"] {
+    animation: uploadAnimation 2s infinite;
+}
+
+/* Image section */
+img {
+    width: 200px; /* Larger image */
+    height: auto;
+    margin: 10px;
+    transition: transform 0.2s, filter 0.2s;
+    filter: brightness(0.9); /* Slightly dimmed for cinematic effect */
+}
+
+img:hover {
+    transform: scale(1.2);
+    filter: brightness(1);
+}
+
+/* Result section */
+pre {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    overflow: auto;
+    margin: 20px 0;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Result section */
+.results-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.results-container h3 {
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Zara and H&M like fonts */
+    color: #343a40;
+}
+
+.results-container pre {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 800px;
+    overflow: auto;
+    margin: 20px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    white-space: pre-wrap; /* Allows text to wrap within the container */
+    word-wrap: break-word; /* Prevents overflow of long words */
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Zara and H&M like fonts */
+    color: #333;
+    border-left: 5px solid #007bff; /* Add a colored border for emphasis */
+}
+.results-container ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.results-container li {
+    margin-left: 20px;
+    position: relative;
+}
+
+.results-container li:before {
+    content: "•";
+    color: #007bff;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.results-container strong {
+    color: #007bff;
+}
+/* Align label and input field horizontally */
+.form-inline {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+}
+
+.form-inline label {
+    margin-bottom: 10px; /* Add margin for spacing */
+    font-size: 18px; /* Optional: increase font size for better visibility */
+}
+
+.fancy-dropdown {
+    width: 17.5%;
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.fancy-dropdown:focus {
+    border-color: #007BFF;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
